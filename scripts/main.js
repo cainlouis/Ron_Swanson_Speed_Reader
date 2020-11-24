@@ -1,18 +1,45 @@
 "use strict";
 
+var APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+var start = false;
+
 document.addEventListener("DOMContentLoaded", function() {
     setup();
 }, false);
 
 function setup() {
-     document.querySelector("#startbtn").onclick = start;
-     document.querySelector("#stopbtn").onclick = stop;
+     document.querySelector("#startstopbtn").onclick = startStop;
 }
 
-function start(e) {
-    console.log("Start");
+function startStop(e) {
+    if (!start) {
+        getNext()
+        // TODO: Change button text to Stop
+        start = true;
+    } else {
+        // TODO: Stop interval, change text to Start
+        start = false;
+    }
 }
 
-function stop(e) {
-    console.log("Stop");
+function getNext() {
+    fetch(APIURL)
+        .then(response => {
+            return response.json()
+        })
+        .then (data => {
+            let word = data[0].split(" ");
+            displayQuote(word);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+function displayQuote(words) {
+
+}
+
+function displayWord() {
+
 }
