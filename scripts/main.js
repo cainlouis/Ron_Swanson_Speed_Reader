@@ -1,23 +1,28 @@
 "use strict";
 
-var APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
-var start = false;
-
 document.addEventListener("DOMContentLoaded", function() {
     setup();
 }, false);
 
+var APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+var start = false;
+let btn = document.querySelector("#startstopbtn");
+let interval;
+
 function setup() {
-     document.querySelector("#startstopbtn").onclick = startStop;
+     btn.addEventListener('click', startStop);
 }
 
 function startStop(e) {
     if (!start) {
         getNext()
         // TODO: Change button text to Stop
+        btn.childNodes[0].nodeValue = "Stop";
         start = true;
     } else {
         // TODO: Stop interval, change text to Start
+        btn.childNodes[0].nodeValue = "Start";
+        clearInterval(interval);
         start = false;
     }
 }
@@ -37,7 +42,10 @@ function getNext() {
 }
 
 function displayQuote(words) {
-
+    let input = document.querySelector('#wpminput').value;
+    words.forEach(element => {
+        interval = setInterval(displayWord, input);
+    });
 }
 
 function displayWord() {

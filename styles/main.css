@@ -10,3 +10,13 @@ html {
 #center {
     color: red;
 }
+
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    background-image: url(../images/ron_swanson_wallpaper.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
