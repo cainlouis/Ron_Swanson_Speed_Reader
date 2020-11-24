@@ -1,0 +1,12 @@
+html {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+#reader {
+    border: 1px solid black;
+    font-size: 2em;
+}
+
+#center {
+    color: red;
+}
