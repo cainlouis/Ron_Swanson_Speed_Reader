@@ -8,6 +8,7 @@ var APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
 var start = false;
 let btn = document.querySelector("#startstopbtn");
 let interval;
+let wpm = 60000;
 
 function setup() {
      btn.addEventListener('click', startStop);
@@ -44,7 +45,7 @@ function getNext() {
 function displayQuote(words) {
     let input = document.querySelector('#wpminput').value;
     words.forEach(element => {
-        interval = setInterval(displayWord, input);
+        interval = setInterval(displayWord, wpm/input);
     });
 }
 
