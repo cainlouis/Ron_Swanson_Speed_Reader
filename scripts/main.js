@@ -7,23 +7,40 @@ document.addEventListener("DOMContentLoaded", function() {
     setup();
 }, false);
 
-const APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
-let start = false;
-let btn = document.querySelector("#startstopbtn");
-let interval;
-let wpm = 60000;
-let index = 0;
+let global = {};
 
 /**
  * Setup function
  */
 function setup() {
-     btn.addEventListener('click', startStop);
-     let savedWpm = localStorage.getItem("wpm");
-     if (savedWpm == null) {
-         savedWpm = 100;
-     }
-    document.querySelector('#wpminput').value = savedWpm;
+    global.APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+    global.start = false;
+    global.index = 0;
+    global.wpm = 60000;
+    global.btn = document.querySelector("#startstopbtn");
+    global.input = document.querySelector('#wpminput');
+
+    setupWpm();
+    global.btn.addEventListener('click', startStop);
+    global.input.addEventListener('click', speedHandler);
+
+    /*global.savedWpm = localStorage.getItem("wpm");
+    if (global.savedWpm == null) {
+        global.savedWpm = 100;
+    }
+    global.input.value = global.savedWpm;*/
+}
+
+function setupWpm() {
+    if (localStorage.getItem("wpm") === null) {
+        localStorage.setItem("wpm", JSON.stringify(100));
+        global.savedWpm = 100;
+        global.input.value = global.savedWpm;
+    }
+    else {
+        global.savedWpm = JSON.parse(localStorage.getItem("wpm"));
+        global.input.value = global.savedWpm;
+    }
 }
 
 /**
@@ -31,15 +48,15 @@ function setup() {
  * @param {Event} event
  */
 function startStop(e) {
-    if (!start) {
+    if (!global.start) {
         getNext()
-        btn.childNodes[0].nodeValue = "Stop";
-        start = true;
+        global.btn.childNodes[0].nodeValue = "Stop";
+        global.start = true;
     } else {
-        btn.childNodes[0].nodeValue = "Start";
-        clearInterval(interval);
-        index = 0;
-        start = false;
+        global.btn.childNodes[0].nodeValue = "Start";
+        clearInterval(global.interval);
+        global.index = 0;
+        global.start = false;
     }
 }
 
@@ -47,7 +64,7 @@ function startStop(e) {
  * Gets next quote from API then calls displayQuote()
  */
 function getNext() {
-    fetch(APIURL)
+    fetch(global.APIURL)
         .then(response => {
             return response.json()
         })
@@ -61,13 +78,23 @@ function getNext() {
 }
 
 /**
+ * Saves wpm to localstorage 
+ * @param {Event} e 
+ */
+function speedHandler(e) {
+    global.savedWpm = global.input.value;
+    window.localStorage.setItem("wpm", JSON.stringify(global.savedWpm));
+}
+
+/**
  * Starts interval with appropriate wpm and displayWord() function  
  * @param {string[]} words 
  */
 function displayQuote(words) {
-    let input = document.querySelector('#wpminput').value;
-    window.localStorage.setItem("wpm", input);
-    interval = setInterval(displayWord, wpm/input, words);
+    //let input = document.querySelector('#wpminput').value;
+    //window.localStorage.setItem("wpm", input);
+    console.log(global.savedWpm);
+    global.interval = setInterval(displayWord, global.wpm/global.savedWpm, words);
 }
 
 /**
@@ -75,16 +102,16 @@ function displayQuote(words) {
  * @param {string[]} words
  */
 function displayWord(words) {
-    let word = words[index];
+    let word = words[global.index];
     console.log(word);
     let isSplit = splitWord(word);
     document.querySelector('#left').textContent = isSplit[0];
     document.querySelector('#center').textContent = isSplit[1];
     document.querySelector('#right').textContent = isSplit[2];
-    index++;
-    if(words.length == index) {
-        clearInterval(interval);
-        index = 0;
+    global.index++;
+    if(words.length == global.index) {
+        clearInterval(global.interval);
+        global.index = 0;
         getNext();
     }
 }
