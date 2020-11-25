@@ -1,3 +1,4 @@
+/*Sergio Arturo Segrera, Nael Louis*/
 @font-face {
     font-family: Roboto Mono;
     src: url(fonts/RobotoMono-VariableFont_wght.ttf);
@@ -19,12 +20,12 @@ body {
 }
 
 #reader {
-    white-space: pre;
     background-color: white;
     border: 1px solid black;
     font-size: 2em;
     width: 800px;
-    align-content: center;
+    text-justify: left;
+    white-space: pre;
 }
 
 #center {
