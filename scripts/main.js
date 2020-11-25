@@ -13,7 +13,11 @@ let index = 0;
 
 function setup() {
      btn.addEventListener('click', startStop);
-     // TODO: Local storage wpm
+     let savedWpm = localStorage.getItem("wpm");
+     if (savedWpm == null) {
+         savedWpm = 100;
+     }
+    document.querySelector('#wpminput').value = savedWpm;
 }
 
 function startStop(e) {
@@ -47,6 +51,7 @@ function getNext() {
 
 function displayQuote(words) {
     let input = document.querySelector('#wpminput').value;
+    window.localStorage.setItem("wpm", input);
     interval = setInterval(displayWord, wpm/input, words);
 }
 
