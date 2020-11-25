@@ -1,3 +1,6 @@
+/**
+ * Nael Louis & Sergio Segrera
+ */
 "use strict";
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -11,6 +14,9 @@ let interval;
 let wpm = 60000;
 let index = 0;
 
+/**
+ * Setup function
+ */
 function setup() {
      btn.addEventListener('click', startStop);
      let savedWpm = localStorage.getItem("wpm");
@@ -20,14 +26,16 @@ function setup() {
     document.querySelector('#wpminput').value = savedWpm;
 }
 
+/**
+ *  Start button logic 
+ * @param {Event} event
+ */
 function startStop(e) {
     if (!start) {
         getNext()
-        // TODO: Change button text to Stop
         btn.childNodes[0].nodeValue = "Stop";
         start = true;
     } else {
-        // TODO: Stop interval, change text to Start
         btn.childNodes[0].nodeValue = "Start";
         clearInterval(interval);
         index = 0;
@@ -35,6 +43,9 @@ function startStop(e) {
     }
 }
 
+/**
+ * Gets next quote from API then calls displayQuote()
+ */
 function getNext() {
     fetch(APIURL)
         .then(response => {
@@ -49,12 +60,20 @@ function getNext() {
         })
 }
 
+/**
+ * Starts interval with appropriate wpm and displayWord() function  
+ * @param {string[]} words 
+ */
 function displayQuote(words) {
     let input = document.querySelector('#wpminput').value;
     window.localStorage.setItem("wpm", input);
     interval = setInterval(displayWord, wpm/input, words);
 }
 
+/**
+ * Splits word into 3 and updates the DOM and increases the index
+ * @param {string[]} words
+ */
 function displayWord(words) {
     let word = words[index];
     console.log(word);
@@ -70,6 +89,10 @@ function displayWord(words) {
     }
 }
 
+/**
+ * Splits word into 3 depending on word length 
+ * @param {string} word 
+ */
 function splitWord(word) {
     let size = word.length; 
     if(size < 2) {
