@@ -23,14 +23,11 @@ function setup() {
     setupWpm();
     global.btn.addEventListener('click', startStop);
     global.input.addEventListener('click', speedHandler);
-
-    /*global.savedWpm = localStorage.getItem("wpm");
-    if (global.savedWpm == null) {
-        global.savedWpm = 100;
-    }
-    global.input.value = global.savedWpm;*/
 }
 
+/**
+ * Initiate wpm with saved value in localstorage
+ */
 function setupWpm() {
     if (localStorage.getItem("wpm") === null) {
         localStorage.setItem("wpm", JSON.stringify(100));
@@ -91,9 +88,6 @@ function speedHandler(e) {
  * @param {string[]} words 
  */
 function displayQuote(words) {
-    //let input = document.querySelector('#wpminput').value;
-    //window.localStorage.setItem("wpm", input);
-    console.log(global.savedWpm);
     global.interval = setInterval(displayWord, global.wpm/global.savedWpm, words);
 }
 
@@ -103,7 +97,6 @@ function displayQuote(words) {
  */
 function displayWord(words) {
     let word = words[global.index];
-    console.log(word);
     let isSplit = splitWord(word);
     document.querySelector('#left').textContent = isSplit[0];
     document.querySelector('#center').textContent = isSplit[1];
