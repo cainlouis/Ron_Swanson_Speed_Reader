@@ -3,6 +3,10 @@
  */
 "use strict";
 
+/**
+ * This code use the fetch api to get a quote from a website and breaks it into single words. Following that, it gets a value from the html for 
+ * the speed with which the words will be displayed. The display will be stopped if the button is pressed after it was started.
+ */
 document.addEventListener("DOMContentLoaded", function() {
     setup();
 }, false);
@@ -10,7 +14,11 @@ document.addEventListener("DOMContentLoaded", function() {
 let global = {};
 
 /**
- * Setup function
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
+ * @description the globals variables are initialized and event listeners are added to the button and the reader input when they are clicked
+ * also call setupWpm to set a default speed if the reader is empty.
  */
 function setup() {
     global.APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
@@ -26,7 +34,10 @@ function setup() {
 }
 
 /**
- * Initiate wpm with saved value in localstorage
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
+ * @description Initiate wpm with saved value in localstorage if it is null, else update the localstorage with the value from the reader
  */
 function setupWpm() {
     if (localStorage.getItem("wpm") === null) {
@@ -41,8 +52,13 @@ function setupWpm() {
 }
 
 /**
- *  Start button logic 
+ * @author Sergio Segrera
+ * @author Nael Louis
+ *  
  * @param {Event} event
+ * 
+ * @description Start button logic. If start is not false call the function getNext and change the text of the button to 
+ * stop. Else change the text to start, clear the interval, reinitialize the index to 0 and change start to false.
  */
 function startStop(e) {
     if (!global.start) {
@@ -58,7 +74,11 @@ function startStop(e) {
 }
 
 /**
- * Gets next quote from API then calls displayQuote()
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
+ * @description Gets next quote from API then calls displayQuote(), split the quote in a array of words.
+ * else console log the error.
  */
 function getNext() {
     fetch(global.APIURL)
@@ -75,8 +95,12 @@ function getNext() {
 }
 
 /**
- * Saves wpm to localstorage 
- * @param {Event} e 
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
+ * @param {Event} e
+ * 
+ * @description Saves wpm to localstorage  
  */
 function speedHandler(e) {
     global.savedWpm = global.input.value;
@@ -84,16 +108,25 @@ function speedHandler(e) {
 }
 
 /**
- * Starts interval with appropriate wpm and displayWord() function  
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
  * @param {string[]} words 
+ * 
+ * @description Starts interval with appropriate wpm and displayWord() function 
  */
 function displayQuote(words) {
     global.interval = setInterval(displayWord, global.wpm/global.savedWpm, words);
 }
 
 /**
- * Splits word into 3 and updates the DOM and increases the index
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
  * @param {string[]} words
+ * 
+ * @description Splits word into 3 and updates the DOM and increases the index, once we went through the array 
+ * clear the interval, reinitialize the index to 0 and call getNext
  */
 function displayWord(words) {
     let word = words[global.index];
@@ -110,8 +143,12 @@ function displayWord(words) {
 }
 
 /**
- * Splits word into 3 depending on word length 
+ * @author Sergio Segrera
+ * @author Nael Louis
+ * 
  * @param {string} word 
+ * 
+ * @description Splits word into 3 depending on word length 
  */
 function splitWord(word) {
     let size = word.length; 
