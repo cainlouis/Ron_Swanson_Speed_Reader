@@ -2,6 +2,7 @@
     font-family: Roboto Mono;
     src: url(fonts/RobotoMono-VariableFont_wght.ttf);
 }
+
 html {
     font-family: Roboto Mono;
 }
@@ -19,6 +20,7 @@ body {
 
 #reader {
     white-space: pre;
+    background-color: white;
     border: 1px solid black;
     font-size: 2em;
     width: 800px;

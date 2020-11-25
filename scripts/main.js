@@ -13,6 +13,7 @@ let index = 0;
 
 function setup() {
      btn.addEventListener('click', startStop);
+     // TODO: Local storage wpm
 }
 
 function startStop(e) {
