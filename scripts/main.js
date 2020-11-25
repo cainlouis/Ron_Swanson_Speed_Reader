@@ -1,5 +1,5 @@
 /**
- * Nael Louis & Sergio Segrera
+ * @author Nael Louis & Sergio Segrera
  */
 "use strict";
 
