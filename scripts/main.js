@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 }, false);
 
 const APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
-const start = false;
+let start = false;
 let btn = document.querySelector("#startstopbtn");
 let interval;
 let wpm = 60000;
