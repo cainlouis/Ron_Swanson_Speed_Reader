@@ -1,14 +1,9 @@
+@font-face {
+    font-family: Roboto Mono;
+    src: url(fonts/RobotoMono-VariableFont_wght.ttf);
+}
 html {
-    font-family: 'Noto Sans JP', sans-serif;
-}
-
-#reader {
-    border: 1px solid black;
-    font-size: 2em;
-}
-
-#center {
-    color: red;
+    font-family: Roboto Mono;
 }
 
 body {
@@ -19,4 +14,16 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+}
+
+#reader {
+    white-space: pre;
+    border: 1px solid black;
+    font-size: 2em;
+    width: 800px;
+    align-content: center;
+}
+
+#center {
+    color: red;
 }
