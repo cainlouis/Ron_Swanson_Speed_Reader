@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 let global = {};
 
 /**
- * 
+ * Setup function
  */
 function setup() {
     global.APIURL = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
