@@ -41,7 +41,7 @@ function setup() {
  */
 function setupWpm() {
     if (localStorage.getItem("wpm") === null) {
-        localStorage.setItem("wpm", JSON.stringify(100));
+        localStorage.setItem("wpm", 100);
         global.savedWpm = 100;
         global.input.value = global.savedWpm;
     }
@@ -104,7 +104,7 @@ function getNext() {
  */
 function speedHandler(e) {
     global.savedWpm = global.input.value;
-    window.localStorage.setItem("wpm", JSON.stringify(global.savedWpm));
+    localStorage.setItem("wpm", global.savedWpm);
 }
 
 /**
